@@ -2,10 +2,10 @@
 
 RSpec.describe Trixie::Load do
   let(:instance) { described_class.new(**options) }
-  let(:options) { { file: secrets_file, groups: secrets_groups , format: format } }
+  let(:options) { { file: secrets_file, groups: secrets_groups, format: format } }
   let(:secrets_file) { Trixie.root_path.join("spec/fixture/.trixie.yml").to_s }
   let(:secrets_groups) { [] }
-  let(:format) { 'env' }
+  let(:format) { "env" }
 
   describe "#call" do
     subject(:call) { instance.call }

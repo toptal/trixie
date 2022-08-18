@@ -3,9 +3,11 @@
 require "open3"
 require "yaml"
 require "json"
+require "pathname"
 require "dry/cli"
 
 require_relative "trixie/version"
+require_relative "trixie/template"
 require_relative "trixie/formatter"
 require_relative "trixie/load"
 require_relative "trixie/cli"

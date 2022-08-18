@@ -4,6 +4,18 @@ module Trixie
   class CLI # rubocop:disable Style/Documentation
     extend Dry::CLI::Registry
 
+    class Init < Dry::CLI::Command # rubocop:disable Style/Documentation
+      desc "Creates an initial .trixie.yml"
+
+      option :output, type: :string, default: ".trixie.yml", desc: "Output File", aliases: ["-o"]
+      option :template, type: :string, default: "default", desc: "Template to be used", aliases: ["-t"]
+
+      def call(template:, output:)
+        warn "Creating trixie secrets file to #{output}"
+        Template.render(template, to: output)
+      end
+    end
+
     class Load < Dry::CLI::Command # rubocop:disable Style/Documentation
       desc "Load envs"
       option :file, type: :string, default: ".trixie.yml", desc: "Secrets file", aliases: ["-f"]
@@ -25,5 +37,6 @@ module Trixie
 
     register "--version", Version, aliases: ["-v"]
     register "load", Load, aliases: ["l"]
+    register "init", Init, aliases: ["i"]
   end
 end
