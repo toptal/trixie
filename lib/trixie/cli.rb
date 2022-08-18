@@ -6,9 +6,10 @@ module Trixie
 
     class Load < Dry::CLI::Command # rubocop:disable Style/Documentation
       desc 'Load envs'
+      option :file, type: :string, default: '.trixie.yml', desc: "Secrets file", aliases: ['-f']
 
-      def call(*)
-        puts 'Loading..'
+      def call(**options)
+        Trixie::Load.new(**options).call
       end
     end
 
