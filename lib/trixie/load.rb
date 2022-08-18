@@ -4,8 +4,9 @@ module Trixie
   class Load
     OP_NOT_INSTALLED = "op cli is not installed please download and install at https://developer.1password.com/docs/cli/get-started#install"
 
-    def initialize(file:)
+    def initialize(file:, groups:)
       @file = file
+      @groups = groups
     end
 
     def call
@@ -39,8 +40,14 @@ module Trixie
       @secrets_config ||= YAML.load_file(@file)
     end
 
+    def filtered_secrets
+      return secrets_config["secrets"] if @groups.empty?
+
+      secrets_config["secrets"].select { |secret| secret["groups"].any? { |group| @groups.include?(group) } }
+    end
+
     def formatted_secrets
-      secrets_config["secrets"].map { |secret| "#{secret["env"]}=#{secret["value"]}" }.join("\n")
+      filtered_secrets.map { |secret| "#{secret["env"]}=#{secret["value"]}" }.join("\n")
     end
   end
 end

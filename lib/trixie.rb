@@ -1,8 +1,8 @@
 # frozen_string_literal: true
 
-require "dry/cli"
 require "open3"
 require "yaml"
+require "dry/cli"
 
 require_relative "trixie/version"
 require_relative "trixie/load"
