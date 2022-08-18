@@ -11,4 +11,11 @@ require_relative "trixie/cli"
 module Trixie
   class Error < StandardError; end
   # Your code goes here...
+  #
+
+  class << self
+    def root_path
+      Pathname.new File.expand_path(__dir__ + '/..')
+    end
+  end
 end

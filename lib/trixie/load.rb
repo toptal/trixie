@@ -10,9 +10,8 @@ module Trixie
       verify_op_installed!
 
       create_account unless account_is_configured?
-      #signin unless user_is_logged?
 
-      puts fetch_secrets
+      fetch_secrets
     end
 
     def verify_op_installed!
@@ -27,11 +26,7 @@ module Trixie
       warn "* Configuring 1password Account"
       warn "To get the Secret Key take a look at https://support.1password.com/secret-key/"
 
-      system('op account add')
-    end
-
-    def user_is_logged?
-      system('op account get > /dev/null 2>&1')
+      %x[op account add]
     end
 
     def fetch_secrets

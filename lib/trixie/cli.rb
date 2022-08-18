@@ -9,7 +9,7 @@ module Trixie
       option :file, type: :string, default: '.trixie.yml', desc: "Secrets file", aliases: ['-f']
 
       def call(**options)
-        Trixie::Load.new(**options).call
+        puts Trixie::Load.new(**options).call
       end
     end
 
