@@ -10,8 +10,7 @@ require_relative "trixie/cli"
 
 module Trixie
   class Error < StandardError; end
-  # Your code goes here...
-  #
+  class OpCLINotInstalled < Error; end
 
   class << self
     def root_path

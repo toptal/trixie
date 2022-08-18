@@ -7,6 +7,7 @@ module Trixie
     def initialize(file:, groups:)
       @file = file
       @groups = groups
+
     end
 
     def call
@@ -18,7 +19,7 @@ module Trixie
     end
 
     def verify_op_installed!
-      raise Trixie::Error, OP_NOT_INSTALLED unless system("which op > /dev/null")
+      raise Trixie::OpCLINotInstalled, OP_NOT_INSTALLED unless system("which op > /dev/null")
     end
 
     def account_is_configured?

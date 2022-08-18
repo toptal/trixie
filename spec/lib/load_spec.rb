@@ -15,7 +15,6 @@ RSpec.describe Trixie::Load do
         MY_SECRET2=321
       SECRETS
     end
-
     let(:formatted_secrets) do
       <<~FORMATTED_SECRETS
         MY_SECRET={{ op://Developers/MySecret/SETUP_SECRET/value }}
@@ -23,12 +22,21 @@ RSpec.describe Trixie::Load do
       FORMATTED_SECRETS
         .chomp
     end
-
+    let(:op_installed) { true }
     let(:op_account_list_output) { ["Account Information"] }
 
     before do
+      allow(instance).to receive(:system).with("which op > /dev/null").and_return(op_installed).once
       allow(Open3).to receive(:capture2).with("op account list").and_return(op_account_list_output)
       allow(instance).to receive(:`).with("eval $(op signin) && echo '#{formatted_secrets}' | op inject").and_return(fetched_secrets)
+    end
+
+    context "when op is not installed" do
+      let(:op_installed) { false }
+
+      it "returns the fetched secrets" do
+        expect { call }.to raise_error(Trixie::OpCLINotInstalled)
+      end
     end
 
     context "when account is configured" do
