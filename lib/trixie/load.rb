@@ -4,10 +4,10 @@ module Trixie
   class Load
     OP_NOT_INSTALLED = "op cli is not installed please download and install at https://developer.1password.com/docs/cli/get-started#install"
 
-    def initialize(file:, groups:)
+    def initialize(file:, groups: [], format: "env")
       @file = file
       @groups = groups
-
+      @formatter = Formatter.for(format)
     end
 
     def call
@@ -48,7 +48,7 @@ module Trixie
     end
 
     def formatted_secrets
-      filtered_secrets.map { |secret| "#{secret["env"]}=#{secret["value"]}" }.join("\n")
+      @formatter.call(filtered_secrets)
     end
   end
 end

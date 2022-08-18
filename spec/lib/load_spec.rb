@@ -2,9 +2,10 @@
 
 RSpec.describe Trixie::Load do
   let(:instance) { described_class.new(**options) }
-  let(:options) { { file: secrets_file, groups: secrets_groups } }
+  let(:options) { { file: secrets_file, groups: secrets_groups , format: format } }
   let(:secrets_file) { Trixie.root_path.join("spec/fixture/.trixie.yml").to_s }
   let(:secrets_groups) { [] }
+  let(:format) { 'env' }
 
   describe "#call" do
     subject(:call) { instance.call }
@@ -78,7 +79,7 @@ RSpec.describe Trixie::Load do
         SECRETS
       end
 
-      it 'only fetches the specifyied groups' do
+      it "only fetches the specifyied groups" do
         call
 
         expect(instance).to have_received(:`).with("eval $(op signin) && echo '#{formatted_secrets}' | op inject")
