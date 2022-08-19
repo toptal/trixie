@@ -30,6 +30,17 @@ RSpec.describe Trixie::Formatter do
     end
   end
 
+  describe "sh formatter" do
+    let(:format) { "sh" }
+
+    it "returns the secrets in the sh format" do
+      is_expected.to eq(<<~RESULT.chomp)
+        export MY_SECRET1={{ op://Developers/MySecret/SETUP_SECRET/value }}
+        export MY_SECRET2={{ op://Developers/MySecret2/SETUP_SECRET/value }}
+      RESULT
+    end
+  end
+
   describe "json formatter" do
     let(:format) { "json" }
 
