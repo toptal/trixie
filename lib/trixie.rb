@@ -12,7 +12,7 @@ require_relative "trixie/formatter"
 require_relative "trixie/load"
 require_relative "trixie/cli"
 
-module Trixie
+module Trixie # rubocop:disable Style/Documentation
   class Error < StandardError; end
   class OpCLINotInstalled < Error; end
 

@@ -29,7 +29,8 @@ RSpec.describe Trixie::Load do
     before do
       allow(instance).to receive(:system).with("which op > /dev/null").and_return(op_installed).once
       allow(Open3).to receive(:capture2).with("op account list").and_return(op_account_list_output)
-      allow(instance).to receive(:`).with("eval $(op signin) && echo '#{formatted_secrets}' | op inject").and_return(fetched_secrets)
+      allow(instance).to receive(:`).with("eval $(op signin) && echo '#{formatted_secrets}' | op inject")
+                                    .and_return(fetched_secrets)
     end
 
     context "when op is not installed" do

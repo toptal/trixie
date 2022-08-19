@@ -1,4 +1,7 @@
+# frozen_string_literal: true
+
 module Trixie
+  # Render templates in lib/templates folder to a custom path
   class Template
     def self.render(template_name, to:)
       new(template_name).render(to: to)

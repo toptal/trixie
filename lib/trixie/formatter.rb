@@ -1,4 +1,7 @@
+# frozen_string_literal: true
+
 module Trixie
+  # Inlcludes the possible formats to output the secrets and the main entrypoint with Formatter.for(format)
   class Formatter
     FORMATTERS = {
       "env" => ->(secrets) { secrets.map { |secret| "#{secret["env"]}=#{secret["value"]}" }.join("\n") },

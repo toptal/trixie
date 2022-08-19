@@ -1,6 +1,7 @@
 # frozen_string_literal: true
 
 module Trixie
+  # Fetches the specified secrets with op cli and returns them formatted
   class Load
     OP_NOT_INSTALLED = "op cli is not installed please download and install at https://developer.1password.com/docs/cli/get-started#install"
 
