@@ -1,7 +1,7 @@
 PATH
   remote: .
   specs:
-    trixie (0.1.0)
+    trixie (0.1.1)
       dry-cli (~> 0.7.0)
 
 GEM
@@ -66,4 +66,4 @@ DEPENDENCIES
   trixie!
 
 BUNDLED WITH
-   2.2.7
+   2.2.33
