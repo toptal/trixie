@@ -1,0 +1,8 @@
+---
+secrets:
+  -  env: 'MY_SECRET1'
+     value: "{{ op://Developers/MySecret1/SETUP_SECRET/value }}"
+     groups: [group1]
+  -  env: 'MY_SECRET2'
+     value: "{{ op://Developers/MySecret2/SETUP_SECRET/value }}"
+     groups: [group2]

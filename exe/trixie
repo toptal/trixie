@@ -1,11 +1,11 @@
 #!/usr/bin/env ruby
 # frozen_string_literal: true
 
-require_relative '../lib/trixie'
+require_relative "../lib/trixie"
 
 begin
   Dry::CLI.new(Trixie::CLI).call
-rescue StandardError => ex
-  puts ex
-  warn 'Exiting trixie...'
+rescue Trixie::Error => e
+  puts e
+  warn "Exiting trixie..."
 end

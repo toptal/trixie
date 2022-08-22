@@ -30,5 +30,5 @@ Gem::Specification.new do |spec|
 
   # For more information and examples about making a new gem, checkout our
   # guide at: https://bundler.io/guides/creating_gem.html
-  spec.add_dependency 'dry-cli', '~> 0.7.0'
+  spec.add_dependency "dry-cli", "~> 0.7.0"
 end
