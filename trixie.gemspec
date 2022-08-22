@@ -5,8 +5,9 @@ require_relative "lib/trixie/version"
 Gem::Specification.new do |spec|
   spec.name          = "trixie"
   spec.version       = Trixie::VERSION
-  spec.authors       = ["Carlos Atkinson"]
-  spec.email         = ["carlos.atkinson@toptal.com", "dalibor.kezele@toptal.com", "tiago.melo@toptal.com"]
+  spec.authors       = ["Toptal, LLC"]
+  spec.email         = ["open-source@toptal.com", "carlos.atkinson@toptal.com", "dalibor.kezele@toptal.com",
+                        "tiago.melo@toptal.com"]
 
   spec.summary       = "CLI tool to fetch secrets in development"
   spec.homepage      = "https://github.com/toptal/trixie"
