@@ -6,3 +6,9 @@ secrets:
   -  env: 'MY_SECRET2'
      value: "{{ op://Developers/MySecret2/SETUP_SECRET/value }}"
      groups: [group2]
+  -  env: 'BOOL_ENV'
+     value: true
+     groups: [group3]
+  -  env: 'NUMBER_ENV'
+     value: 12
+     groups: [group4]

@@ -14,12 +14,16 @@ RSpec.describe Trixie::Load do
       <<~SECRETS
         MY_SECRET=123
         MY_SECRET2=321
+        BOOL_ENV=true
+        NUMBER_ENV=12
       SECRETS
     end
     let(:formatted_secrets) do
       <<~FORMATTED_SECRETS
         MY_SECRET={{ op://Developers/MySecret/SETUP_SECRET/value }}
         MY_SECRET2={{ op://Developers/MySecret2/SETUP_SECRET/value }}
+        BOOL_ENV=true
+        NUMBER_ENV=12
       FORMATTED_SECRETS
         .chomp
     end
@@ -37,7 +41,7 @@ RSpec.describe Trixie::Load do
       let(:op_installed) { false }
 
       it "returns the fetched secrets" do
-        expect { call }.to raise_error(Trixie::OpCLINotInstalled)
+        expect { call }.to raise_error(Trixie::OpCLINotInstalledError)
       end
     end
 
@@ -92,12 +96,24 @@ RSpec.describe Trixie::Load do
     end
 
     context "with a group without secrets" do
-      let(:secrets_groups) { ["group3"] }
+      let(:secrets_groups) { ["group10"] }
       let(:formatted_secrets) { "" }
       let(:fetched_secrets) { "" }
 
       it "returns an empty string" do
         is_expected.to eq("")
+      end
+    end
+
+    context "with an invalid secret file" do
+      let(:secrets_file) { Trixie.root_path.join("spec/fixture/.trixie_invalid.yml").to_s }
+
+      it "raises an error" do
+        expected_error_message = "Invalid .trixie.yml: " \
+                                 '{:secrets=>{0=>{:env=>["must be a string"], :value=>["is missing"]}, ' \
+                                 '1=>{:value=>["must be filled"], :groups=>["must be an array"]}}}'
+
+        expect { call }.to raise_error(Trixie::InvalidConfigError, expected_error_message)
       end
     end
   end
