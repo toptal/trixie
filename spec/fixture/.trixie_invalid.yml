@@ -1,0 +1,7 @@
+---
+secrets:
+  -  env: 2
+     groups: [group1]
+  -  env: 'MY_SECRET2'
+     value: ""
+     groups: 'Not a Group'

@@ -71,8 +71,7 @@ Or install it yourself as:
 
 1. Support Multiple Backends/Password Managers, Trixie::Loader can be refactored to be an adapter for the op CLI
 2. Allow specific Backend options, eg: trixie load --backend op --backend-options '{ "email": "bar@foo.com",   "address": "foo.1password.com"}'
-3. Validate the `.trixie.yml`, check if we have the required values for trixie to run
-4. Add a load --cache option, so fetched secrets could be retained for a while without using the Password Manager Backend
+3. Add a load --cache option, so fetched secrets could be retained for a while without using the Password Manager Backend
 
 ## Development
 

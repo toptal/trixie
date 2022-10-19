@@ -13,6 +13,7 @@ module Trixie
 
     def call
       verify_op_installed!
+      verify_secrets_config!
 
       create_account unless account_is_configured?
 
@@ -20,7 +21,13 @@ module Trixie
     end
 
     def verify_op_installed!
-      raise Trixie::OpCLINotInstalled, OP_NOT_INSTALLED unless system("which op > /dev/null")
+      raise Trixie::OpCLINotInstalledError, OP_NOT_INSTALLED unless system("which op > /dev/null")
+    end
+
+    def verify_secrets_config!
+      result = Trixie::Contracts::TrixieYml.new.call(secrets_config)
+
+      raise Trixie::InvalidConfigError, "Invalid .trixie.yml: #{result.errors.to_h}" if result.errors.any?
     end
 
     def account_is_configured?
