@@ -1,7 +1,7 @@
 PATH
   remote: .
   specs:
-    trixie (0.1.2)
+    trixie (0.1.3)
       dry-cli (~> 0.7.0)
       dry-schema (~> 1.10.0)
       dry-validation (~> 1.8.0)
