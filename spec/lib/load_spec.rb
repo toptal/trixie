@@ -56,17 +56,41 @@ RSpec.describe Trixie::Load do
     context "when account is not configured" do
       let(:op_account_list_output) { [""] }
 
-      before do
-        allow(instance).to receive(:`).with("op account add")
+      context "and no email and address passed" do
+        before do
+          allow(instance).to receive(:`).with("op account add")
+        end
+
+        it "creates an account" do
+          call
+          expect(instance).to have_received(:`).with("op account add").once
+        end
+
+        it "returns the fetched secrets" do
+          is_expected.to eq(fetched_secrets)
+        end
       end
 
-      it "creates an account" do
-        call
-        expect(instance).to have_received(:`).with("op account add").once
-      end
+      context "and email and address are passed as ENV variables" do
+        let(:email) { "test.email@toptal.com" }
+        let(:address) { "my.toptal.com" }
 
-      it "returns the fetched secrets" do
-        is_expected.to eq(fetched_secrets)
+        before do
+          allow(instance).to receive(:`).with("op account add --address #{address} --email #{email}")
+          allow(ENV).to receive(:[]).with("TRIXIE_OP_EMAIL").and_return(email)
+          allow(ENV).to receive(:[]).with("TRIXIE_OP_ADDRESS").and_return(address)
+        end
+
+        it "passess address and email as params" do
+          call
+
+          expect(instance).to have_received(:`)
+            .with("op account add --address #{address} --email #{email}").once
+        end
+
+        it "returns the fetched secrets" do
+          is_expected.to eq(fetched_secrets)
+        end
       end
     end
 
