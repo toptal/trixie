@@ -18,7 +18,20 @@ secrets:
      value: "{{ op://Developers/NPM_TOKEN/SETUP_SECRET/value }}"
 ```
 
-Then you can run `trixie load > .env.secrets` to update your env file with the `NPM_TOKEN`
+Then you can run `trixie load > .env.secrets` to update your env file with the `NPM_TOKEN`.
+
+Alternatively, you can also leverage the following environment variables:
+- TRIXIE_OP_ADDRESS - sets the authentication address for 1Password
+- TRIXIE_OP_EMAIL - sets the user email address for 1Password
+
+Example:
+```ssh
+  TRIXIE_OP_ADDRESS=https://{account}.1password.com \
+  TRIXIE_OP_EMAIL=john.doe@email.com \
+  trixie load > .env.secrets
+```
+this will populate your env file with:
+`export NPM_TOKEN={toptals-read-only-npm-token}`
 
 ### Groups
 
@@ -70,8 +83,7 @@ Or install it yourself as:
 ## TODO IDEAS
 
 1. Support Multiple Backends/Password Managers, Trixie::Loader can be refactored to be an adapter for the op CLI
-2. Allow specific Backend options, eg: trixie load --backend op --backend-options '{ "email": "bar@foo.com",   "address": "foo.1password.com"}'
-3. Add a load --cache option, so fetched secrets could be retained for a while without using the Password Manager Backend
+2. Add a load --cache option, so fetched secrets could be retained for a while without using the Password Manager Backend
 
 ## Development
 

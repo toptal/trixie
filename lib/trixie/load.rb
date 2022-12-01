@@ -4,6 +4,8 @@ module Trixie
   # Fetches the specified secrets with op cli and returns them formatted
   class Load
     OP_NOT_INSTALLED = "op cli is not installed please download and install at https://developer.1password.com/docs/cli/get-started#install"
+    OP_ADDRESS_ENV = "TRIXIE_OP_ADDRESS"
+    OP_EMAIL_ENV = "TRIXIE_OP_EMAIL"
 
     def initialize(file:, groups: [], format: "env")
       @file = file
@@ -38,7 +40,7 @@ module Trixie
       warn "* Configuring 1password Account"
       warn "To get the Secret Key take a look at https://support.1password.com/secret-key/"
 
-      `op account add`
+      add_op_account
     end
 
     def fetch_secrets
@@ -57,6 +59,15 @@ module Trixie
 
     def formatted_secrets
       @formatter.call(filtered_secrets)
+    end
+
+    def add_op_account
+      cmd = "op account add"
+
+      cmd += " --address #{ENV[OP_ADDRESS_ENV]}" if ENV[OP_ADDRESS_ENV]
+      cmd += " --email #{ENV[OP_EMAIL_ENV]}" if ENV[OP_EMAIL_ENV]
+
+      `#{cmd}`
     end
   end
 end
